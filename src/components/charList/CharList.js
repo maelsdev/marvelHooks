@@ -103,16 +103,4 @@ class CharList extends Component {
 }
 
 export default CharList;
-
-
-const storeName = 'prostar';
-
-const storeDescriprion={
-    budget:10000,
-    emploees:['taras','nika','alex'],
-    products:{
-        shigar: 20,
-        whater:10,
-            },
-    open:true,
-    };
+ 
