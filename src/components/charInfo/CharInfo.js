@@ -1,38 +1,30 @@
 import "./charInfo.scss";
-import { useState,useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import MarvelService from "../../services/MarvelService";
 import Skeleton from "../skeleton/Skeleton";
 import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
-
 const CharInfo = (props) => {
-  
+  const [char, setChar] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-const [char, setChar] = useState(null);
-const [loading, setLoading] = useState(false);
-const [error, setError] = useState(false);
+  const marvelService = new MarvelService();
 
-const marvelService = new MarvelService();
+  useEffect(() => {
+    updateChar();
+    // eslint-disable-next-line
+  }, [props.selectedChar]);
 
-useEffect(() => {
-  updateChar();
-  // eslint-disable-next-line
-}, [props.selectedChar] );
-
-
-
- const updateChar = () => {
+  const updateChar = () => {
     const { selectedChar } = props;
     if (!selectedChar) {
       return;
     }
     onCharLoading();
-    marvelService
-      .getCharacter(selectedChar)
-      .then(onCharLoaded)
-      .catch(onError);
+    marvelService.getCharacter(selectedChar).then(onCharLoaded).catch(onError);
   };
 
   const onCharLoaded = (char) => {
@@ -49,22 +41,19 @@ useEffect(() => {
     setError(true);
   };
 
-  
-    
-    const skeleton = char || loading || error ? null : <Skeleton />;
-    const content = !(loading || error || !char) ? <Char char={char} /> : null;
-    const errorMessage = error ? <ErrorMessage /> : null;
-    const spinner = loading ? <Spinner /> : null;
-    return (
-      <div className="char__info">
-        {skeleton}
-        {content}
-        {errorMessage}
-        {spinner}
-      </div>
-    );
-  
-}
+  const skeleton = char || loading || error ? null : <Skeleton />;
+  const content = !(loading || error || !char) ? <Char char={char} /> : null;
+  const errorMessage = error ? <ErrorMessage /> : null;
+  const spinner = loading ? <Spinner /> : null;
+  return (
+    <div className="char__info">
+      {skeleton}
+      {content}
+      {errorMessage}
+      {spinner}
+    </div>
+  );
+};
 
 const Char = ({ char }) => {
   const imgStyle =
