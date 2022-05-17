@@ -1,16 +1,14 @@
 import "./randomChar.scss";
 import mjolnir from "../../resources/img/mjolnir.png";
-import MarvelService from "../../services/MarvelService";
+import useMarvelService from "../../services/MarvelService";
 import { useState, useEffect } from "react";
 import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
-const RandomChar = (props) => {
+const RandomChar = () => {
   const [char, setChar] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
 
-  const marvelService = new MarvelService();
+  const { loading, error, getCharacter, clearError } = useMarvelService();
 
   useEffect(() => {
     updateChar();
@@ -19,22 +17,12 @@ const RandomChar = (props) => {
 
   const onCharLoaded = (char) => {
     setChar(char);
-    setLoading(false);
-  };
-
-  const onCharLoading = () => {
-    setLoading(true);
   };
 
   const updateChar = () => {
-    onCharLoading();
+    clearError();
     const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-    marvelService.getCharacter(id).then(onCharLoaded).catch(onError);
-  };
-
-  const onError = () => {
-    setLoading(false);
-    setError(true);
+    getCharacter(id).then(onCharLoaded);
   };
 
   const content = !(loading || error) ? <View char={char} /> : null;
@@ -80,9 +68,9 @@ const View = ({ char }) => {
       <div className="randomchar__info">
         <p className="randomchar__name">{name}</p>
         <p className="randomchar__descr">
-          {description === ""
+          {/* {description === ""
             ? "Decription is not Aviable"
-            : description.slice(0, 200) + "..."}
+            : description.slice(0, 200) + "..."} */}
         </p>
         <div className="randomchar__btns">
           <a href={homepage} className="button button__main">
