@@ -7,7 +7,6 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 const RandomChar = () => {
   const [char, setChar] = useState({});
-
   const { loading, error, getCharacter, clearError } = useMarvelService();
 
   useEffect(() => {

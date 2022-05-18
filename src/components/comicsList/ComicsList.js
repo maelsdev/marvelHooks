@@ -57,7 +57,7 @@ const ComicsList = (props) => {
   }
 
   const items = renderItems(comicsList);
-  const spinner = loading && !newItemLoading ? <Spinner /> : null;
+  const spinner = loading && !newItemLoading && !error ? <Spinner /> : null;
   const errorMessage = error ? <ErrorMessage /> : null;
 
   return (

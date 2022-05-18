@@ -1,10 +1,11 @@
 import "./singleComic.scss";
-
+import Spinner from "../spinner/Spinner";
 import useMarvelService from "../../services/MarvelService";
 import { useState, useEffect } from "react";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 const SingleComic = (props) => {
-  const { getSingleComic } = useMarvelService();
+  const { getSingleComic, loading, error } = useMarvelService();
   const [comics, setComics] = useState([]);
 
   useEffect(() => {
@@ -14,11 +15,24 @@ const SingleComic = (props) => {
 
   const comicUpdate = (comics) => {
     setComics(comics);
-    console.log(comics);
   };
+
+  const content = !(loading || error) ? <View comics={comics} /> : null;
+  const errorMessage = error ? <ErrorMessage /> : null;
+  const spinner = loading && !error ? <Spinner /> : null;
 
   return (
     <div className="single-comic">
+      {content}
+      {errorMessage}
+      {spinner}
+    </div>
+  );
+};
+
+const View = ({ comics }) => {
+  return (
+    <>
       <img
         src={comics.thumbnail}
         alt={comics.title}
@@ -36,7 +50,7 @@ const SingleComic = (props) => {
       <a href="#" className="single-comic__back">
         Back to all
       </a>
-    </div>
+    </>
   );
 };
 
