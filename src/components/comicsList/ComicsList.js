@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
-const ComicsList = () => {
+const ComicsList = (props) => {
   const { getAllComics, loading, error } = useMarvelService();
 
   const [offset, setOffset] = useState(210);
@@ -36,8 +36,12 @@ const ComicsList = () => {
   function renderItems(arr) {
     const items = arr.map((item, i) => {
       return (
-        <li className="comics__item" key={i}>
-          <a href="#" target="_blank" rel="noreferrer">
+        <li
+          className="comics__item"
+          key={i}
+          onClick={(id) => props.onComicSelected(item.id)}
+        >
+          <a href="#">
             <img
               src={item.thumbnail}
               alt={item.title}

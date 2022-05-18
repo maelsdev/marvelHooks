@@ -11,17 +11,22 @@ import SingleComic from "../singleComic/SingleComic";
 
 const App = () => {
   const [selectedChar, setSelectedChar] = useState(null);
+  const [selectedComic, setSelectedcomic] = useState(null);
 
   const onCharSelected = (id) => {
     setSelectedChar(id);
+  };
+
+  const onComicSelected = (id) => {
+    setSelectedcomic(id);
   };
 
   return (
     <div className="app">
       <AppHeader />
       <main>
-        <ComicsList />
-        <SingleComic />
+        <ComicsList onComicSelected={onComicSelected} />
+        <SingleComic selectedComic={selectedComic} />
         {/* <RandomChar />
         <div className="char__content">
           <CharList
