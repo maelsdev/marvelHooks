@@ -1,6 +1,5 @@
 import "./charInfo.scss";
 import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import useMarvelService from "../../services/MarvelService";
 import Skeleton from "../skeleton/Skeleton";
 import Spinner from "../spinner/Spinner";
@@ -27,7 +26,6 @@ const CharInfo = (props) => {
 
   const onCharLoaded = (char) => {
     setChar(char);
-    console.log(char);
   };
 
   const skeleton = char || loading || error ? null : <Skeleton />;
@@ -66,18 +64,24 @@ const Char = ({ char }) => {
           </div>
         </div>
       </div>
-      <div className="char__descr">
-        {char.description === ""
-          ? "Decription is not Aviable"
-          : char.description}
-      </div>
+      <div className="char__descr">{char.description}</div>
       <div className="char__comics">Comics:</div>
+      <ul className="char__comics-list">
+        {char.comics.length > 0
+          ? null
+          : "There is no comics with this character"}
+        {char.comics.map((item, i) => {
+          // eslint-disable-next-line
+          if (i > 9) return;
+          return (
+            <li key={i} className="char__comics-item">
+              {item.name}
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
-};
-
-CharInfo.propTypes = {
-  selectedChar: PropTypes.number,
 };
 
 export default CharInfo;

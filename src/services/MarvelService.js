@@ -41,7 +41,7 @@ const useMarvelService = () => {
       title: comics.title,
       price: comics.prices[0].price,
       url: comics.urls[0].url,
-      description: comics.description || "There is no description",
+      description: comics.description || "There is not description",
       pageCount: comics.pageCount
         ? `${comics.pageCount} p.`
         : "No information about the number of pages",
@@ -59,6 +59,7 @@ const useMarvelService = () => {
       thumbnail: char.thumbnail.path + "." + char.thumbnail.extension,
       homepage: char.urls[0].url,
       wiki: char.urls[1].url,
+      comics: char.comics.items,
     };
   };
 
