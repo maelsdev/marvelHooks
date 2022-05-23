@@ -1,6 +1,7 @@
 import "./comicsList.scss";
 import useMarvelService from "../../services/MarvelService";
 import { useEffect, useState } from "react";
+
 import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
@@ -41,7 +42,7 @@ const ComicsList = (props) => {
           key={i}
           onClick={(id) => props.onComicSelected(item.id)}
         >
-          <a href="#">
+          <a href="/">
             <img
               src={item.thumbnail}
               alt={item.title}

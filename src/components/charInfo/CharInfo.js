@@ -1,5 +1,5 @@
 import "./charInfo.scss";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import useMarvelService from "../../services/MarvelService";
 import Skeleton from "../skeleton/Skeleton";
@@ -27,6 +27,7 @@ const CharInfo = (props) => {
 
   const onCharLoaded = (char) => {
     setChar(char);
+    console.log(char);
   };
 
   const skeleton = char || loading || error ? null : <Skeleton />;
@@ -71,19 +72,6 @@ const Char = ({ char }) => {
           : char.description}
       </div>
       <div className="char__comics">Comics:</div>
-
-      <ul className="char__comics-list">
-        {char.comics.length > 0 ? null : "Comics is not Aviable"}
-        {char.comics.map((item, i) => {
-          // eslint-disable-next-line
-          if (i > 9) return;
-          return (
-            <li className="char__comics-item" key={i}>
-              {item.name}
-            </li>
-          );
-        })}
-      </ul>
     </>
   );
 };

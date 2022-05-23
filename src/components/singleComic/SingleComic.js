@@ -11,6 +11,7 @@ const SingleComic = (props) => {
   useEffect(() => {
     const id = props.selectedComic ? props.selectedComic : 98446;
     getSingleComic(id).then(comicUpdate);
+    // eslint-disable-next-line
   }, [props.selectedComic]);
 
   const comicUpdate = (comics) => {
@@ -47,7 +48,7 @@ const View = ({ comics }) => {
           {comics.price ? comics.price : "not aviable"}$
         </div>
       </div>
-      <a href="#" className="single-comic__back">
+      <a href="/" className="single-comic__back">
         Back to all
       </a>
     </>
