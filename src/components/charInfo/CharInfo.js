@@ -4,6 +4,7 @@ import useMarvelService from "../../services/MarvelService";
 import Skeleton from "../skeleton/Skeleton";
 import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import CharSearchForm from "../searchForm/searchForm";
 
 const CharInfo = (props) => {
   const [char, setChar] = useState(null);
@@ -80,6 +81,7 @@ const Char = ({ char }) => {
           );
         })}
       </ul>
+      <CharSearchForm />
     </>
   );
 };
