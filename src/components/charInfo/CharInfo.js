@@ -4,7 +4,7 @@ import useMarvelService from "../../services/MarvelService";
 import Skeleton from "../skeleton/Skeleton";
 import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import CharSearchForm from "../searchForm/CharSearchForm";
+
 const CharInfo = (props) => {
   const [char, setChar] = useState(null);
 
@@ -13,15 +13,14 @@ const CharInfo = (props) => {
   useEffect(() => {
     updateChar();
     // eslint-disable-next-line
-  }, [props.selectedChar]);
+  }, [props.charId]);
 
   const updateChar = () => {
-    const { selectedChar } = props;
-    if (!selectedChar) {
+    if (!props.charId) {
       return;
     }
     clearError();
-    getCharacter(selectedChar).then(onCharLoaded);
+    getCharacter(props.charId).then(onCharLoaded);
   };
 
   const onCharLoaded = (char) => {
@@ -80,7 +79,6 @@ const Char = ({ char }) => {
           );
         })}
       </ul>
-      <CharSearchForm />
     </>
   );
 };
