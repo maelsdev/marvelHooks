@@ -12,7 +12,7 @@ import useMarvelService from "../../services/MarvelService";
 import { useState } from "react";
 
 const CharSearchForm = () => {
-  const { error, getCharByName, clearError } = useMarvelService();
+  const { loading, error, getCharByName, clearError } = useMarvelService();
   const [char, setChar] = useState(null);
 
   const updateChar = (name) => {
@@ -71,7 +71,11 @@ const CharSearchForm = () => {
               placeholder="Enter name"
             />
 
-            <button type="submit" className="button button__main">
+            <button
+              type="submit"
+              className="button button__main"
+              disabled={loading}
+            >
               <div className="inner">find</div>
             </button>
           </div>
